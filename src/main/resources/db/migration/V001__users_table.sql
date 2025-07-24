@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id BIGINT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100),
-    phone_number VARCHAR(20)
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL
 )
