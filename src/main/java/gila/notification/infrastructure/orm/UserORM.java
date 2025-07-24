@@ -20,7 +20,7 @@ public class UserORM {
     private String phoneNumber;
 
     @OneToMany
-    private List<CategorySubscription> categorySubscriptions;
+    private List<CategorySubscriptionORM> categorySubscriptions;
 
     @OneToMany
     private List<ChannelSubscriptionORM> channelSubscriptions;
@@ -57,11 +57,11 @@ public class UserORM {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<CategorySubscription> getCategorySubscriptions() {
+    public List<CategorySubscriptionORM> getCategorySubscriptions() {
         return categorySubscriptions;
     }
 
-    public void setCategorySubscriptions(List<CategorySubscription> categorySubscriptions) {
+    public void setCategorySubscriptions(List<CategorySubscriptionORM> categorySubscriptions) {
         this.categorySubscriptions = categorySubscriptions;
     }
 
