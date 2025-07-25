@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class NotificationORM {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

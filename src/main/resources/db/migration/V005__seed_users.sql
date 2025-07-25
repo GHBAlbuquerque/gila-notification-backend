@@ -15,6 +15,9 @@ INSERT INTO category_subscriptions (user_id, category) VALUES
 (5, 'FINANCE');
 
 INSERT INTO channel_subscriptions (user_id, channel) VALUES
+(1, 'SMS'),
+(1, 'PUSH'),
+(2, 'EMAIL'),
 (3, 'EMAIL'),
 (3, 'SMS'),
 (4, 'PUSH'),
