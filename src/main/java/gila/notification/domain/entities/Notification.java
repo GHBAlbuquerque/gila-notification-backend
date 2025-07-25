@@ -17,12 +17,10 @@ public class Notification {
     private LocalDateTime timestamp;
     private NotificationStatus status;
 
-    public Notification(Long userId, CategoryType category, ChannelType channel, String message) {
+    public Notification(Long userId, CategoryType category, String message) {
         this.userId = Objects.requireNonNull(userId);
         this.category = Objects.requireNonNull(category);
-        this.channel = Objects.requireNonNull(channel);
         this.message = Objects.requireNonNull(message);
-        this.timestamp = LocalDateTime.now();
         this.status = NotificationStatus.PENDING;
     }
 
