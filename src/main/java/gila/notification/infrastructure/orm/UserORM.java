@@ -2,7 +2,6 @@ package gila.notification.infrastructure.orm;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -23,6 +22,12 @@ public class UserORM {
     @NotBlank
     @Column(name="phone_number")
     private String phoneNumber;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<CategorySubscriptionORM> categorySubscriptions;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<ChannelSubscriptionORM> channelSubscriptions;
 
     public UserORM() {
     }
@@ -64,5 +69,21 @@ public class UserORM {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<CategorySubscriptionORM> getCategorySubscriptions() {
+        return categorySubscriptions;
+    }
+
+    public void setCategorySubscriptions(List<CategorySubscriptionORM> categorySubscriptions) {
+        this.categorySubscriptions = categorySubscriptions;
+    }
+
+    public List<ChannelSubscriptionORM> getChannelSubscriptions() {
+        return channelSubscriptions;
+    }
+
+    public void setChannelSubscriptions(List<ChannelSubscriptionORM> channelSubscriptions) {
+        this.channelSubscriptions = channelSubscriptions;
     }
 }
