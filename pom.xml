@@ -31,7 +31,8 @@
 		<java.version>17</java.version>
 		<mysql-connector-java.version>8.0.33</mysql-connector-java.version>
 		<h2.version>2.3.232</h2.version>
-		<flyway-core.version>11.10.2</flyway-core.version>
+		<flyway-core.version>11.10.4</flyway-core.version>
+		<hibernate-validator>8.0.0.Final</hibernate-validator>
 		<spring-boot.version>3.5.4</spring-boot.version>
 		<mockito-version>5.18.0</mockito-version>
 		<restassured-version>5.5.5</restassured-version>
@@ -62,7 +63,7 @@
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>8.0.0.Final</version>
+			<version>${hibernate-validator}</version>
 		</dependency>
 
 		<!-- DATABASE -->
@@ -82,6 +83,11 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 			<version>${flyway-core.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
 		</dependency>
 
 		<!-- TESTS -->

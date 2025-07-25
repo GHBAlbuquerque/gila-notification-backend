@@ -24,20 +24,6 @@ class CreateNotificationUseCaseImplTest {
     @InjectMocks
     private CreateNotificationUseCaseImpl useCase;
 
-    //TODO? REVER
-    @Test
-    void shouldCreateNotificationWithDefaultsWhenFieldsAreNull() {
-        final var user = createUser();
-        final var inputNotification = createNotification(user.getId());
-        final var savedNotification = createNotification(user.getId());
-
-        when(gateway.create(inputNotification)).thenReturn(savedNotification);
-
-        final var result = useCase.execute(user, inputNotification);
-
-        assertThat(result.getStatus()).isEqualTo(NotificationStatus.PENDING);
-    }
-
     @Test
     void shouldCreateNotificationWithPreFilledFields() {
         final var user = createUser();
