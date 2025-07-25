@@ -18,8 +18,10 @@ public class Notification {
     private NotificationStatus status;
     private int retryCount = 0;
 
-    public Notification(CategoryType category, String message) {
+    public Notification(Long userId, CategoryType category, ChannelType channel, String message) {
+        this.userId = Objects.requireNonNull(userId);
         this.category = Objects.requireNonNull(category);
+        this.channel = Objects.requireNonNull(channel);
         this.message = Objects.requireNonNull(message);
         this.status = NotificationStatus.PENDING;
     }
@@ -33,7 +35,6 @@ public class Notification {
         this.timestamp = Objects.requireNonNull(timestamp);
         this.status = Objects.requireNonNull(status);
     }
-
     public void markAsSent() {
         this.status = NotificationStatus.SENT;
     }

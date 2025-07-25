@@ -8,6 +8,10 @@ import gila.notification.domain.interfaces.facades.NotifyUsersFacade;
 import gila.notification.domain.interfaces.usecases.GetAllNotificationsPagedUseCase;
 import gila.notification.application.mappers.NotificationMapper;
 import gila.notification.domain.entities.Notification;
+import gila.notification.infrastructure.senders.SmsNotificationSender;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/notifications")
 public class NotificationController {
+
+    private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
 
     final NotifyUsersFacade notifyUsersFacade;
     final GetAllNotificationsPagedUseCase getAllNotificationsPagedUseCase;
@@ -28,7 +34,7 @@ public class NotificationController {
 
 
     @PostMapping
-    public ResponseEntity<CreatedNotificationDTO> sendNotification(@RequestBody final CreateNotificationDTO dto) {
+    public ResponseEntity<CreatedNotificationDTO> sendNotification(@Valid @RequestBody(required = true) final CreateNotificationDTO dto) {
         notifyUsersFacade.notifyUsers(dto);
         return ResponseEntity.noContent().build();
     }

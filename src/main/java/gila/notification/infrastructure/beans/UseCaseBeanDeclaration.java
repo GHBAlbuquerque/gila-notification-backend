@@ -14,7 +14,6 @@ import java.util.List;
 @Configuration
 public class UseCaseBeanDeclaration {
 
-    //TODO
     @Bean
     public CreateNotificationUseCase createNotificationUseCase(NotificationGateway gateway) {
         return new CreateNotificationUseCaseImpl(gateway);
