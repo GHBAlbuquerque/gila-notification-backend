@@ -11,10 +11,4 @@ public class ChannelSubscriptionMapper {
 
         return new ChannelSubscription(id.getUserId(), id.getChannel());
     }
-
-    public static ChannelSubscriptionORM toOrm(final ChannelSubscription domain) {
-        final ChannelSubId id = new ChannelSubId(domain.getUserId(), domain.getChannel());
-
-        return new ChannelSubscriptionORM(id);
-    }
 }

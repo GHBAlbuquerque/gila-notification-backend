@@ -1,14 +1,11 @@
 package gila.notification.application.mappers;
 
-import gila.notification.adapters.dto.request.CreateNotificationDTO;
-import gila.notification.adapters.dto.response.CreatedNotificationDTO;
 import gila.notification.adapters.dto.response.GetNotificationDTO;
 import gila.notification.domain.entities.Notification;
 import gila.notification.infrastructure.orm.NotificationORM;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationMapper {
@@ -46,12 +43,6 @@ public class NotificationMapper {
                 domain.getMessage(),
                 domain.getTimestamp(),
                 domain.getStatus()
-        );
-    }
-
-    public static CreatedNotificationDTO toCreatedDto(Notification domain) {
-        return new CreatedNotificationDTO(
-                domain.getId()
         );
     }
 

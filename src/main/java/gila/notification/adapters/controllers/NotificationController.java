@@ -39,9 +39,9 @@ public class NotificationController {
     }
 
     @GetMapping
-    public ResponseEntity<PagedResponse<GetNotificationDTO>> getAllNotifications(@RequestParam int size,
-                                                                                 @RequestParam int page) {
-        final Page<Notification> result = getAllNotificationsPagedUseCase.execute(size, page);
+    public ResponseEntity<PagedResponse<GetNotificationDTO>> getAllNotifications(@RequestParam(defaultValue = "10") int size,
+                                                                                 @RequestParam(defaultValue = "0") int page) {
+        final Page<Notification> result = getAllNotificationsPagedUseCase.execute(page, size);
         final Page<GetNotificationDTO> dtos = NotificationMapper.toPagedDto(result);
         final PagedResponse<GetNotificationDTO> pagedResponse = new PagedResponse<>(dtos.getContent(), dtos.getNumber(), dtos.getSize(), dtos.getTotalElements(), dtos.getTotalPages());
 

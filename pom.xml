@@ -31,8 +31,11 @@
 		<java.version>17</java.version>
 		<mysql-connector-java.version>8.0.33</mysql-connector-java.version>
 		<h2.version>2.3.232</h2.version>
-		<flyway-core.version>11.10.2</flyway-core.version>
+		<flyway-core.version>11.10.4</flyway-core.version>
+		<hibernate-validator>8.0.0.Final</hibernate-validator>
 		<spring-boot.version>3.5.4</spring-boot.version>
+		<mockito-version>5.18.0</mockito-version>
+		<restassured-version>5.5.5</restassured-version>
 	</properties>
 
 	<dependencies>
@@ -60,7 +63,7 @@
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>8.0.0.Final</version>
+			<version>${hibernate-validator}</version>
 		</dependency>
 
 		<!-- DATABASE -->
@@ -83,8 +86,29 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
+		</dependency>
+
+		<!-- TESTS -->
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${restassured-version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

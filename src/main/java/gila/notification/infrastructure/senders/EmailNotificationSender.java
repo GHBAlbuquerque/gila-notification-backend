@@ -24,6 +24,7 @@ public class EmailNotificationSender implements NotificationSender {
     public void send(User user, Notification notification) {
         try {
             final Message message = new Message(notification.getCategory(), notification.getMessage(), notification.getTimestamp());
+
             //implement sending logic here
 
             logger.info("Mock {} sent to {}: {}", getType(), user.getEmail(), message.content());

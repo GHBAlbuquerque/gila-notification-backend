@@ -11,10 +11,4 @@ public class CategorySubscriptionMapper {
 
         return new CategorySubscription(id.getUserId(), id.getCategory());
     }
-
-    public static CategorySubscriptionORM toOrm(final CategorySubscription domain) {
-        final CategorySubId id = new CategorySubId(domain.getUserId(), domain.getCategory());
-
-        return new CategorySubscriptionORM(id);
-    }
 }
