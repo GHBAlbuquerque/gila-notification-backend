@@ -8,7 +8,6 @@ import gila.notification.domain.interfaces.facades.NotifyUsersFacade;
 import gila.notification.domain.interfaces.usecases.GetAllNotificationsPagedUseCase;
 import gila.notification.application.mappers.NotificationMapper;
 import gila.notification.domain.entities.Notification;
-import gila.notification.infrastructure.senders.SmsNotificationSender;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,7 @@ public class NotificationController {
 
 
     @PostMapping
-    public ResponseEntity<CreatedNotificationDTO> sendNotification(@Valid @RequestBody(required = true) final CreateNotificationDTO dto) {
+    public ResponseEntity<CreatedNotificationDTO> sendNotifications(@Valid @RequestBody(required = true) final CreateNotificationDTO dto) {
         notifyUsersFacade.notifyUsers(dto);
         return ResponseEntity.noContent().build();
     }

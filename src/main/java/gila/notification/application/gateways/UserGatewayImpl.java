@@ -4,6 +4,7 @@ import gila.notification.application.mappers.UserMapper;
 import gila.notification.domain.interfaces.gateways.UserGateway;
 import gila.notification.domain.entities.User;
 import gila.notification.domain.interfaces.repositories.UserRepository;
+import gila.notification.infrastructure.orm.UserORM;
 
 import java.util.Optional;
 
@@ -16,9 +17,10 @@ public class UserGatewayImpl implements UserGateway {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return repository.findById(id)
-                .map(UserMapper::toDomain);
+    public User findById(Long id) {
+        final Optional<UserORM> optional =  repository.findById(id);
+
+        return optional.map(UserMapper::toDomain).orElse(null);
     }
 
     @Override

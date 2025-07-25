@@ -1,8 +1,8 @@
 package gila.notification.infrastructure.beans;
 
 import gila.notification.application.facades.NotifyUsersFacadeImpl;
-import gila.notification.application.usecases.SendNotificationUseCaseImpl;
 import gila.notification.domain.interfaces.facades.NotifyUsersFacade;
+import gila.notification.domain.interfaces.gateways.UserGateway;
 import gila.notification.domain.interfaces.usecases.CreateNotificationUseCase;
 import gila.notification.domain.interfaces.usecases.GetSubscribedUsersUseCase;
 import gila.notification.domain.interfaces.usecases.GetUserChannelPreferenceUseCase;
@@ -17,7 +17,8 @@ public class FacadeBeanDeclaration {
     public NotifyUsersFacade notifyUsersFacade(GetSubscribedUsersUseCase getSubscribedUsersUseCase,
                                                GetUserChannelPreferenceUseCase getUserChannelPreferenceUseCase,
                                                CreateNotificationUseCase createNotificationUseCase,
-                                               SendNotificationUseCase sendNotificationUseCase) {
-        return new NotifyUsersFacadeImpl(getSubscribedUsersUseCase, getUserChannelPreferenceUseCase, createNotificationUseCase, sendNotificationUseCase);
+                                               SendNotificationUseCase sendNotificationUseCase,
+                                               UserGateway userGateway) {
+        return new NotifyUsersFacadeImpl(getSubscribedUsersUseCase, getUserChannelPreferenceUseCase, createNotificationUseCase, sendNotificationUseCase, userGateway);
     }
 }
