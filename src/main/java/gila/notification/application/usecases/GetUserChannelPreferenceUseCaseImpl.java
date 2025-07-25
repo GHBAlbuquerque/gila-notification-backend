@@ -7,15 +7,15 @@ import gila.notification.domain.interfaces.usecases.GetUserChannelPreferenceUseC
 import java.util.List;
 
 public class GetUserChannelPreferenceUseCaseImpl implements GetUserChannelPreferenceUseCase {
-    //TODO
+
     private final ChannelSubscriptionGateway gateway;
 
-    public GetUserChannelPreferenceUseCaseImpl(ChannelSubscriptionGateway channelSubscriptionGateway) {
+    public GetUserChannelPreferenceUseCaseImpl(final ChannelSubscriptionGateway channelSubscriptionGateway) {
         this.gateway = channelSubscriptionGateway;
     }
 
     @Override
-    public List<ChannelSubscription> execute(Long userId) {
-        return null;
+    public List<ChannelSubscription> execute(final Long userId) {
+        return gateway.findAllByUserId(userId);
     }
 }

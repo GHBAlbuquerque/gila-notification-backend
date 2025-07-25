@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ChannelSubscriptionRepository extends JpaRepository<ChannelSubscriptionORM, ChannelSubId> {
 
-    List<ChannelSubscriptionORM> findAllById_Channel(String channel);
+    List<ChannelSubscriptionORM> findAllById_UserId(Long userId);
 }

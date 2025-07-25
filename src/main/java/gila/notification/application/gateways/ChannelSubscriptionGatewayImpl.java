@@ -25,8 +25,8 @@ public class ChannelSubscriptionGatewayImpl implements ChannelSubscriptionGatewa
     }
 
     @Override
-    public List<ChannelSubscription> findAllByChannel(String channel) {
-        return repository.findAllById_Channel(channel)
+    public List<ChannelSubscription> findAllByUserId(Long userId) {
+        return repository.findAllById_UserId(userId)
                 .stream()
                 .map(ChannelSubscriptionMapper::toDomain)
                 .toList();

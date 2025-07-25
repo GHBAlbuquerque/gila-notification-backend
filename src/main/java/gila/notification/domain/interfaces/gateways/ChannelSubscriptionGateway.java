@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface ChannelSubscriptionGateway {
     Optional<ChannelSubscription> findById(ChannelSubId id);
-    List<ChannelSubscription> findAllByChannel(String channel);
+    List<ChannelSubscription> findAllByUserId(Long userId);
 }

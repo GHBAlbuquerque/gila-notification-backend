@@ -8,7 +8,6 @@ import gila.notification.domain.interfaces.usecases.GetSubscribedUsersUseCase;
 import java.util.List;
 
 public class GetSubscribedUsersUseCaseImpl implements GetSubscribedUsersUseCase {
-    //TODO
 
     private final CategorySubscriptionGateway gateway;
 
@@ -17,7 +16,7 @@ public class GetSubscribedUsersUseCaseImpl implements GetSubscribedUsersUseCase 
     }
 
     @Override
-    public List<CategorySubscription> execute(CategoryType categoryType) {
-        return null;
+    public List<CategorySubscription> execute(final CategoryType categoryType) {
+        return gateway.findAllByCategory(categoryType.name());
     }
 }
