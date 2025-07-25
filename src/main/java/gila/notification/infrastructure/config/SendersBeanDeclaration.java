@@ -1,4 +1,4 @@
-package gila.notification.infrastructure.beans;
+package gila.notification.infrastructure.config;
 
 import gila.notification.domain.interfaces.sender.NotificationSender;
 import gila.notification.infrastructure.senders.EmailNotificationSender;

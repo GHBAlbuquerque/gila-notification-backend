@@ -1,4 +1,4 @@
-package gila.notification.infrastructure.beans;
+package gila.notification.infrastructure.config;
 
 import gila.notification.application.gateways.CategorySubscriptionGatewayImpl;
 import gila.notification.application.gateways.ChannelSubscriptionGatewayImpl;

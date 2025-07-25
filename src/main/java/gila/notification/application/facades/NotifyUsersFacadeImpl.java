@@ -15,6 +15,7 @@ import gila.notification.domain.interfaces.usecases.GetUserChannelPreferenceUseC
 import gila.notification.domain.interfaces.usecases.SendNotificationUseCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
     }
 
     @Override
+    @Async("notificationExecutor")
     public void notifyUsers(final CreateNotificationDTO dto) {
         final CategoryType category = dto.category();
         final String message = dto.message();
