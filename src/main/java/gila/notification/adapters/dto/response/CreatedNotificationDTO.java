@@ -1,4 +1,4 @@
-package gila.notification.application.dto.response;
+package gila.notification.adapters.dto.response;
 
 public record CreatedNotificationDTO(
         Long id

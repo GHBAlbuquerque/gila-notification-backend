@@ -1,4 +1,4 @@
-package gila.notification.application.dto.request;
+package gila.notification.adapters.dto.request;
 
 
 import gila.notification.domain.enums.CategoryType;

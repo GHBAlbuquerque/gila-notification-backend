@@ -1,4 +1,4 @@
-package gila.notification.application.dto.response;
+package gila.notification.adapters.dto.response;
 
 import gila.notification.domain.enums.CategoryType;
 import gila.notification.domain.enums.ChannelType;
