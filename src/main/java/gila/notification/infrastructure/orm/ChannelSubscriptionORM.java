@@ -11,4 +11,12 @@ public class ChannelSubscriptionORM {
 
     @EmbeddedId
     private ChannelSubId id;
+
+    public ChannelSubId getId() {
+        return id;
+    }
+
+    public void setId(ChannelSubId id) {
+        this.id = id;
+    }
 }

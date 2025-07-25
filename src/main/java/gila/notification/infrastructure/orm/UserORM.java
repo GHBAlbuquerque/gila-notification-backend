@@ -1,7 +1,8 @@
 package gila.notification.infrastructure.orm;
 
-import gila.notification.domain.entities.CategorySubscription;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -12,10 +13,13 @@ public class UserORM {
     @Id
     private Long id;
 
+    @NotBlank
     private String name;
 
+    @NotBlank
     private String email;
 
+    @NotBlank
     @Column(name="phone_number")
     private String phoneNumber;
 
