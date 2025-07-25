@@ -76,4 +76,31 @@ public class Notification {
         return status;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setCategory(CategoryType category) {
+        this.category = category;
+    }
+
+    public void setChannel(ChannelType channel) {
+        this.channel = channel;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setStatus(NotificationStatus status) {
+        this.status = status;
+    }
 }
