@@ -50,7 +50,7 @@ public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
         }
     }
 
-    private void notifyUser(final CategorySubscription subscription, String message) {
+    private void notifyUser(final CategorySubscription subscription, final String message) {
         Long userId = subscription.getUserId();
 
         if (!userGateway.existsById(userId)) {
