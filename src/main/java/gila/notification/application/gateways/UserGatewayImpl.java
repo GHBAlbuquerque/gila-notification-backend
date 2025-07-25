@@ -1,6 +1,6 @@
 package gila.notification.application.gateways;
 
-import gila.notification.application.interfaces.gateways.UserGateway;
+import gila.notification.domain.interfaces.gateways.UserGateway;
 import gila.notification.domain.entities.User;
 
 import java.util.Optional;

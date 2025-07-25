@@ -4,16 +4,14 @@ import gila.notification.adapters.dto.request.CreateNotificationDTO;
 import gila.notification.adapters.dto.response.CreatedNotificationDTO;
 import gila.notification.adapters.dto.response.GetNotificationDTO;
 import gila.notification.adapters.dto.response.PagedResponse;
-import gila.notification.application.interfaces.usecases.CreateNotificationUseCase;
-import gila.notification.application.interfaces.usecases.GetAllNotificationsPagedUseCase;
+import gila.notification.domain.interfaces.usecases.CreateNotificationUseCase;
+import gila.notification.domain.interfaces.usecases.GetAllNotificationsPagedUseCase;
 import gila.notification.application.mappers.NotificationMapper;
 import gila.notification.domain.entities.Notification;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Validated
 @RestController

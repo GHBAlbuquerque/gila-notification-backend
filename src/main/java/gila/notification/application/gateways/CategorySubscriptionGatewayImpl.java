@@ -1,6 +1,6 @@
 package gila.notification.application.gateways;
 
-import gila.notification.application.interfaces.gateways.CategorySubscriptionGateway;
+import gila.notification.domain.interfaces.gateways.CategorySubscriptionGateway;
 import gila.notification.domain.entities.CategorySubscription;
 import gila.notification.infrastructure.orm.id.CategorySubId;
 

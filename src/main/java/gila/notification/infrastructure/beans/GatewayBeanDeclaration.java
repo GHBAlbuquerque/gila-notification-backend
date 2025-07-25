@@ -4,10 +4,10 @@ import gila.notification.application.gateways.CategorySubscriptionGatewayImpl;
 import gila.notification.application.gateways.ChannelSubscriptionGatewayImpl;
 import gila.notification.application.gateways.NotificationGatewayImpl;
 import gila.notification.application.gateways.UserGatewayImpl;
-import gila.notification.application.interfaces.gateways.CategorySubscriptionGateway;
-import gila.notification.application.interfaces.gateways.ChannelSubscriptionGateway;
-import gila.notification.application.interfaces.gateways.NotificationGateway;
-import gila.notification.application.interfaces.gateways.UserGateway;
+import gila.notification.domain.interfaces.gateways.CategorySubscriptionGateway;
+import gila.notification.domain.interfaces.gateways.ChannelSubscriptionGateway;
+import gila.notification.domain.interfaces.gateways.NotificationGateway;
+import gila.notification.domain.interfaces.gateways.UserGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,6 +1,6 @@
 package gila.notification.application.gateways;
 
-import gila.notification.application.interfaces.gateways.ChannelSubscriptionGateway;
+import gila.notification.domain.interfaces.gateways.ChannelSubscriptionGateway;
 import gila.notification.domain.entities.ChannelSubscription;
 import gila.notification.infrastructure.orm.id.ChannelSubId;
 
