@@ -1,6 +1,7 @@
 package gila.notification.infrastructure.orm.id;
 
 import gila.notification.domain.enums.CategoryType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,8 +12,10 @@ import java.util.Objects;
 @Embeddable
 public class CategorySubId implements Serializable {
 
+    @Column(name = "user_id")
     private Long userId;
 
+    @Column(name = "category")
     @Enumerated(EnumType.STRING)
     private CategoryType category;
 

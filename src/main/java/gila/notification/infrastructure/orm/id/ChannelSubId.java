@@ -1,6 +1,7 @@
 package gila.notification.infrastructure.orm.id;
 
 import gila.notification.domain.enums.ChannelType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,8 +12,10 @@ import java.util.Objects;
 @Embeddable
 public class ChannelSubId implements Serializable {
 
+    @Column(name = "user_id")
     private Long userId;
 
+    @Column(name = "channel")
     @Enumerated(EnumType.STRING)
     private ChannelType channel;
 

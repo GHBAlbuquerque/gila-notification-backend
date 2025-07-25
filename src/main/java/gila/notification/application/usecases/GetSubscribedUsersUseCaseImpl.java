@@ -17,6 +17,6 @@ public class GetSubscribedUsersUseCaseImpl implements GetSubscribedUsersUseCase 
 
     @Override
     public List<CategorySubscription> execute(final CategoryType categoryType) {
-        return gateway.findAllByCategory(categoryType.name());
+        return gateway.findAllByCategory(categoryType);
     }
 }

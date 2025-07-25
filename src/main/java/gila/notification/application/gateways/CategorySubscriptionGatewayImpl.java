@@ -1,6 +1,7 @@
 package gila.notification.application.gateways;
 
 import gila.notification.application.mappers.CategorySubscriptionMapper;
+import gila.notification.domain.enums.CategoryType;
 import gila.notification.domain.interfaces.gateways.CategorySubscriptionGateway;
 import gila.notification.domain.entities.CategorySubscription;
 import gila.notification.domain.interfaces.repositories.CategorySubscriptionRepository;
@@ -18,13 +19,7 @@ public class CategorySubscriptionGatewayImpl implements CategorySubscriptionGate
     }
 
     @Override
-    public Optional<CategorySubscription> findById(CategorySubId id) {
-        return repository.findById(id)
-                .map(CategorySubscriptionMapper::toDomain);
-    }
-
-    @Override
-    public List<CategorySubscription> findAllByCategory(String category) {
+    public List<CategorySubscription> findAllByCategory(CategoryType category) {
         return repository.findAllById_Category(category)
                 .stream()
                 .map(CategorySubscriptionMapper::toDomain)
