@@ -16,6 +16,7 @@ public class Notification {
     private String message;
     private LocalDateTime timestamp;
     private NotificationStatus status;
+    private int retryCount = 0;
 
     public Notification(Long userId, CategoryType category, String message) {
         this.userId = Objects.requireNonNull(userId);
@@ -32,6 +33,20 @@ public class Notification {
         this.message = Objects.requireNonNull(message);
         this.timestamp = Objects.requireNonNull(timestamp);
         this.status = Objects.requireNonNull(status);
+    }
+
+    public void markAsSent() {
+        this.status = NotificationStatus.SENT;
+    }
+
+    public void markAsFailed() {
+        this.status = NotificationStatus.FAILED;
+    }
+
+    public void incrementRetry() { this.retryCount++;}
+
+    public boolean canRetry() {
+        return retryCount < 3;
     }
 
     public Long getId() {
@@ -62,11 +77,4 @@ public class Notification {
         return status;
     }
 
-    public void markAsSent() {
-        this.status = NotificationStatus.SENT;
-    }
-
-    public void markAsFailed() {
-        this.status = NotificationStatus.FAILED;
-    }
 }
