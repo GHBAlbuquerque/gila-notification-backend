@@ -1,10 +1,15 @@
 package gila.notification.application.mappers;
 
-import gila.notification.application.dto.request.CreateNotificationDTO;
-import gila.notification.application.dto.response.CreatedNotificationDTO;
-import gila.notification.application.dto.response.GetNotificationDTO;
+import gila.notification.adapters.dto.request.CreateNotificationDTO;
+import gila.notification.adapters.dto.response.CreatedNotificationDTO;
+import gila.notification.adapters.dto.response.GetNotificationDTO;
 import gila.notification.domain.entities.Notification;
 import gila.notification.infrastructure.orm.NotificationORM;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationMapper {
 
@@ -56,5 +61,15 @@ public class NotificationMapper {
         return new CreatedNotificationDTO(
                 domain.getId()
         );
+    }
+
+
+    public static Page<GetNotificationDTO> toPagedDto(Page<Notification> notifications) {
+        List<GetNotificationDTO> dtoList = notifications
+                .stream()
+                .map(NotificationMapper::toDto)
+                .toList();
+
+        return new PageImpl<>(dtoList, notifications.getPageable(), notifications.getTotalElements());
     }
 }

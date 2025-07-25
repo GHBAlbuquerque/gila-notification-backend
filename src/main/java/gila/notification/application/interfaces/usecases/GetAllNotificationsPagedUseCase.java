@@ -1,11 +1,9 @@
 package gila.notification.application.interfaces.usecases;
 
 import gila.notification.domain.entities.Notification;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface GetAllNotificationsPagedUseCase {
 
-    List<Notification> execute(Pageable pageable);
+    Page<Notification> execute(int page, int size);
 }
