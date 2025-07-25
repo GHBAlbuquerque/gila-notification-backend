@@ -13,7 +13,7 @@ public class UseCaseBeanDeclaration {
     //TODO
     @Bean
     public CreateNotificationUseCase createNotificationUseCase() {
-        return new CreateNotificationUseCaseImpl();
+        return new CreateNotificationUseCaseImpl(notificationSenders);
     }
 
     @Bean

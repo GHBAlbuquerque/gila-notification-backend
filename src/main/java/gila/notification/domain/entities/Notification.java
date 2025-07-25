@@ -18,8 +18,7 @@ public class Notification {
     private NotificationStatus status;
     private int retryCount = 0;
 
-    public Notification(Long userId, CategoryType category, String message) {
-        this.userId = Objects.requireNonNull(userId);
+    public Notification(CategoryType category, String message) {
         this.category = Objects.requireNonNull(category);
         this.message = Objects.requireNonNull(message);
         this.status = NotificationStatus.PENDING;
