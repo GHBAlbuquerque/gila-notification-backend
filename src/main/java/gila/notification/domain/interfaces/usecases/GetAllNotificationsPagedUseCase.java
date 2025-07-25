@@ -1,4 +1,4 @@
-package gila.notification.application.interfaces.usecases;
+package gila.notification.domain.interfaces.usecases;
 
 import gila.notification.domain.entities.Notification;
 import org.springframework.data.domain.Page;

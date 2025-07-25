@@ -1,4 +1,4 @@
-package gila.notification.application.interfaces.gateways;
+package gila.notification.domain.interfaces.gateways;
 
 
 import gila.notification.domain.entities.Notification;

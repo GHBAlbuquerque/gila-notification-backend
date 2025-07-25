@@ -1,4 +1,4 @@
-package gila.notification.application.interfaces.gateways;
+package gila.notification.domain.interfaces.gateways;
 
 import gila.notification.domain.entities.ChannelSubscription;
 import gila.notification.infrastructure.orm.id.ChannelSubId;
@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface ChannelSubscriptionGateway {
     Optional<ChannelSubscription> findById(ChannelSubId id);
-    List<ChannelSubscription> findAllByUserId(Long userId);
+    List<ChannelSubscription> findAllByChannel(String channel);
 }

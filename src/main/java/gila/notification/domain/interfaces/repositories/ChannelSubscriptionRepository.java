@@ -1,4 +1,4 @@
-package gila.notification.application.interfaces.repositories;
+package gila.notification.domain.interfaces.repositories;
 
 import gila.notification.infrastructure.orm.ChannelSubscriptionORM;
 import gila.notification.infrastructure.orm.UserORM;
