@@ -1,6 +1,7 @@
 package gila.notification.application.mappers;
 
 import gila.notification.application.dto.request.CreateNotificationDTO;
+import gila.notification.application.dto.response.CreatedNotificationDTO;
 import gila.notification.application.dto.response.GetNotificationDTO;
 import gila.notification.domain.entities.Notification;
 import gila.notification.infrastructure.orm.NotificationORM;
@@ -48,6 +49,12 @@ public class NotificationMapper {
                 domain.getMessage(),
                 domain.getTimestamp(),
                 domain.getStatus()
+        );
+    }
+
+    public static CreatedNotificationDTO toCreatedDto(Notification domain) {
+        return new CreatedNotificationDTO(
+                domain.getId()
         );
     }
 }
