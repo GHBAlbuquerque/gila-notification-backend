@@ -1,7 +1,7 @@
 package gila.notification.domain.enums;
 
 public enum NotificationStatus {
-    CREATED,
-    DELIVERED,
+    PENDING,
+    SENT,
     FAILED
 }
