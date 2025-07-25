@@ -14,7 +14,7 @@ public class CategorySubscriptionGatewayImpl implements CategorySubscriptionGate
     }
 
     @Override
-    public List<CategorySubscription> findAllByUserId(Long userId) {
+    public List<CategorySubscription> findAllByCategory(String category) {
         return null; //TODO
     }
 }

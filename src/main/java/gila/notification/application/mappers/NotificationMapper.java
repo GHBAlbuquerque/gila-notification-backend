@@ -39,7 +39,6 @@ public class NotificationMapper {
 
     public static Notification toDomain(CreateNotificationDTO dto) {
         return new Notification(
-                dto.userId(),
                 dto.category(),
                 dto.message()
         );
