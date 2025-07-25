@@ -12,6 +12,13 @@ public class CategorySubscriptionORM {
     @EmbeddedId
     private CategorySubId id;
 
+    public CategorySubscriptionORM() {
+    }
+
+    public CategorySubscriptionORM(CategorySubId id) {
+        this.id = id;
+    }
+
     public CategorySubId getId() {
         return id;
     }

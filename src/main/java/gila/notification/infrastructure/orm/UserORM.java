@@ -29,6 +29,18 @@ public class UserORM {
     @OneToMany
     private List<ChannelSubscriptionORM> channelSubscriptions;
 
+    public UserORM() {
+    }
+
+    public UserORM(Long id, String name, String email, String phoneNumber, List<CategorySubscriptionORM> categorySubscriptions, List<ChannelSubscriptionORM> channelSubscriptions) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.categorySubscriptions = categorySubscriptions;
+        this.channelSubscriptions = channelSubscriptions;
+    }
+
     public Long getId() {
         return id;
     }

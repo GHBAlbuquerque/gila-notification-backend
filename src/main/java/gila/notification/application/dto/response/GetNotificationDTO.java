@@ -7,6 +7,7 @@ import gila.notification.domain.enums.NotificationStatus;
 import java.time.LocalDateTime;
 
 public record GetNotificationDTO(
+        Long id,
         Long userId,
         CategoryType category,
         ChannelType channel,

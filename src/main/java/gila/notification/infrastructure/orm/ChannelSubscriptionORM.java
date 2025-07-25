@@ -19,4 +19,11 @@ public class ChannelSubscriptionORM {
     public void setId(ChannelSubId id) {
         this.id = id;
     }
+
+    public ChannelSubscriptionORM() {
+    }
+
+    public ChannelSubscriptionORM(ChannelSubId id) {
+        this.id = id;
+    }
 }

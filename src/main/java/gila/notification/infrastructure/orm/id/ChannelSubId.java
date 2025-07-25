@@ -32,6 +32,14 @@ public class ChannelSubId implements Serializable {
         this.channel = channel;
     }
 
+    public ChannelSubId() {
+    }
+
+    public ChannelSubId(Long userId, ChannelType channel) {
+        this.userId = userId;
+        this.channel = channel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

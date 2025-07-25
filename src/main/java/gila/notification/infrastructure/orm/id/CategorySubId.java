@@ -32,6 +32,14 @@ public class CategorySubId implements Serializable {
         this.category = category;
     }
 
+    public CategorySubId() {
+    }
+
+    public CategorySubId(Long userId, CategoryType category) {
+        this.userId = userId;
+        this.category = category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

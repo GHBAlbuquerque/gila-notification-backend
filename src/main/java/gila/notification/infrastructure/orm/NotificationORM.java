@@ -37,6 +37,19 @@ public class NotificationORM {
     @Enumerated(EnumType.STRING)
     private NotificationStatus status;
 
+    public NotificationORM() {
+    }
+
+    public NotificationORM(Long id, Long userId, CategoryType category, ChannelType channel, String message, LocalDateTime timestamp, NotificationStatus status) {
+        this.id = id;
+        this.userId = userId;
+        this.category = category;
+        this.channel = channel;
+        this.message = message;
+        this.timestamp = timestamp;
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }
