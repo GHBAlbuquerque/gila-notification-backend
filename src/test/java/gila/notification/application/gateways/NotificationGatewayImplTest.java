@@ -21,6 +21,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -38,16 +39,16 @@ class NotificationGatewayImplTest {
         final var notification = createDomainNotification();
         final var orm = createORMNotification();
 
-        when(repository.save(orm)).thenReturn(orm);
+        when(repository.save(any(NotificationORM.class))).thenReturn(orm);
 
-        final var result = gateway.create(eq(notification));
+        final var result = gateway.create(notification);
 
         assertThat(result).isNotNull();
     }
 
     @Test
     void shouldReturnNotificationById() {
-        final var id = 10L;
+        final var id = 1L;
         final var orm = createORMNotification();
 
         when(repository.findById(id)).thenReturn(Optional.of(orm));
@@ -75,7 +76,7 @@ class NotificationGatewayImplTest {
         updated.setStatus(NotificationStatus.FAILED);
 
         when(repository.findById(id)).thenReturn(Optional.of(existing));
-        when(repository.save(updated)).thenReturn(updated);
+        when(repository.save(any(NotificationORM.class))).thenReturn(updated);
 
         final var result = gateway.updateStatus(id, NotificationStatus.FAILED);
 
