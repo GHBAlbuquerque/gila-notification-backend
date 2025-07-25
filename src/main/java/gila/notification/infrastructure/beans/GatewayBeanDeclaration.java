@@ -1,5 +1,9 @@
 package gila.notification.infrastructure.beans;
 
+import gila.notification.application.gateways.CategorySubscriptionGatewayImpl;
+import gila.notification.application.gateways.ChannelSubscriptionGatewayImpl;
+import gila.notification.application.gateways.NotificationGatewayImpl;
+import gila.notification.application.gateways.UserGatewayImpl;
 import gila.notification.application.interfaces.gateways.CategorySubscriptionGateway;
 import gila.notification.application.interfaces.gateways.ChannelSubscriptionGateway;
 import gila.notification.application.interfaces.gateways.NotificationGateway;
@@ -13,21 +17,21 @@ public class GatewayBeanDeclaration {
     //TODO
     @Bean
     public UserGateway userGateway() {
-        return null;
+        return new UserGatewayImpl();
     }
 
     @Bean
     public NotificationGateway notificationGateway() {
-        return null;
+        return new NotificationGatewayImpl();
     }
 
     @Bean
     public ChannelSubscriptionGateway channelSubscriptionGateway() {
-        return null;
+        return new ChannelSubscriptionGatewayImpl();
     }
 
     @Bean
     public CategorySubscriptionGateway categorySubscriptionGateway() {
-        return null;
+        return new CategorySubscriptionGatewayImpl();
     }
 }
