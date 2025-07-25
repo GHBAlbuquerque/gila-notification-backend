@@ -1,18 +1,30 @@
 package gila.notification.application.gateways;
 
-import gila.notification.application.interfaces.gateways.UserGateway;
+import gila.notification.application.mappers.UserMapper;
+import gila.notification.domain.interfaces.gateways.UserGateway;
 import gila.notification.domain.entities.User;
+import gila.notification.domain.interfaces.repositories.UserRepository;
+import gila.notification.infrastructure.orm.UserORM;
 
 import java.util.Optional;
 
 public class UserGatewayImpl implements UserGateway {
+
+    private final UserRepository repository;
+
+    public UserGatewayImpl(UserRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
-    public Optional<User> findById(Long id) {
-        return Optional.empty(); //TODO
+    public User findById(Long id) {
+        final Optional<UserORM> optional =  repository.findById(id);
+
+        return optional.map(UserMapper::toDomain).orElse(null);
     }
 
     @Override
     public boolean existsById(Long id) {
-        return false; //TODO
+        return repository.existsById(id);
     }
 }

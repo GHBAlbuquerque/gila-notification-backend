@@ -4,38 +4,39 @@ import gila.notification.adapters.dto.request.CreateNotificationDTO;
 import gila.notification.adapters.dto.response.CreatedNotificationDTO;
 import gila.notification.adapters.dto.response.GetNotificationDTO;
 import gila.notification.adapters.dto.response.PagedResponse;
-import gila.notification.application.interfaces.usecases.CreateNotificationUseCase;
-import gila.notification.application.interfaces.usecases.GetAllNotificationsPagedUseCase;
+import gila.notification.domain.interfaces.facades.NotifyUsersFacade;
+import gila.notification.domain.interfaces.usecases.GetAllNotificationsPagedUseCase;
 import gila.notification.application.mappers.NotificationMapper;
 import gila.notification.domain.entities.Notification;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Validated
 @RestController
 @RequestMapping("/notifications")
 public class NotificationController {
 
-    final CreateNotificationUseCase createNotificationUseCase;
+    private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
+
+    final NotifyUsersFacade notifyUsersFacade;
     final GetAllNotificationsPagedUseCase getAllNotificationsPagedUseCase;
 
-    public NotificationController(CreateNotificationUseCase createNotificationUseCase, GetAllNotificationsPagedUseCase getAllNotificationsPagedUseCase) {
-        this.createNotificationUseCase = createNotificationUseCase;
+    public NotificationController(NotifyUsersFacade notifyUsersFacade, GetAllNotificationsPagedUseCase getAllNotificationsPagedUseCase) {
+        this.notifyUsersFacade = notifyUsersFacade;
         this.getAllNotificationsPagedUseCase = getAllNotificationsPagedUseCase;
     }
 
+
     @PostMapping
-    public ResponseEntity<CreatedNotificationDTO> createNotification(@RequestBody final CreateNotificationDTO dto) {
-        final Notification notification = NotificationMapper.toDomain(dto);
-        final Notification created = createNotificationUseCase.execute(notification);
-
-        return ResponseEntity.ok(NotificationMapper.toCreatedDto(created));
+    public ResponseEntity<CreatedNotificationDTO> sendNotifications(@Valid @RequestBody(required = true) final CreateNotificationDTO dto) {
+        notifyUsersFacade.notifyUsers(dto);
+        return ResponseEntity.noContent().build();
     }
-
 
     @GetMapping
     public ResponseEntity<PagedResponse<GetNotificationDTO>> getAllNotifications(@RequestParam int size,

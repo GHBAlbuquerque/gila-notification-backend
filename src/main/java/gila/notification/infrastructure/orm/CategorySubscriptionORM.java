@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "category_subscription")
+@Table(name= "category_subscriptions")
 public class CategorySubscriptionORM {
 
     @EmbeddedId

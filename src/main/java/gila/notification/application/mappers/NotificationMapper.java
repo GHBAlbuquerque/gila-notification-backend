@@ -37,14 +37,6 @@ public class NotificationMapper {
         return orm;
     }
 
-    public static Notification toDomain(CreateNotificationDTO dto) {
-        return new Notification(
-                dto.userId(),
-                dto.category(),
-                dto.message()
-        );
-    }
-
     public static GetNotificationDTO toDto(Notification domain) {
         return new GetNotificationDTO(
                 domain.getId(),

@@ -16,10 +16,12 @@ public class Notification {
     private String message;
     private LocalDateTime timestamp;
     private NotificationStatus status;
+    private int retryCount = 0;
 
-    public Notification(Long userId, CategoryType category, String message) {
+    public Notification(Long userId, CategoryType category, ChannelType channel, String message) {
         this.userId = Objects.requireNonNull(userId);
         this.category = Objects.requireNonNull(category);
+        this.channel = Objects.requireNonNull(channel);
         this.message = Objects.requireNonNull(message);
         this.status = NotificationStatus.PENDING;
     }
@@ -32,6 +34,19 @@ public class Notification {
         this.message = Objects.requireNonNull(message);
         this.timestamp = Objects.requireNonNull(timestamp);
         this.status = Objects.requireNonNull(status);
+    }
+    public void markAsSent() {
+        this.status = NotificationStatus.SENT;
+    }
+
+    public void markAsFailed() {
+        this.status = NotificationStatus.FAILED;
+    }
+
+    public void incrementRetry() { this.retryCount++;}
+
+    public boolean canRetry() {
+        return retryCount < 3;
     }
 
     public Long getId() {
@@ -62,11 +77,31 @@ public class Notification {
         return status;
     }
 
-    public void markAsSent() {
-        this.status = NotificationStatus.SENT;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void markAsFailed() {
-        this.status = NotificationStatus.FAILED;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setCategory(CategoryType category) {
+        this.category = category;
+    }
+
+    public void setChannel(ChannelType channel) {
+        this.channel = channel;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setStatus(NotificationStatus status) {
+        this.status = status;
     }
 }
