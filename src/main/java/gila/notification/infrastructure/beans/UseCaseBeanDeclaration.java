@@ -1,6 +1,9 @@
 package gila.notification.infrastructure.beans;
 
 import gila.notification.application.usecases.*;
+import gila.notification.domain.interfaces.gateways.CategorySubscriptionGateway;
+import gila.notification.domain.interfaces.gateways.ChannelSubscriptionGateway;
+import gila.notification.domain.interfaces.gateways.NotificationGateway;
 import gila.notification.domain.interfaces.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,27 +13,27 @@ public class UseCaseBeanDeclaration {
 
     //TODO
     @Bean
-    public CreateNotificationUseCase createNotificationUseCase() {
-        return new CreateNotificationUseCaseImpl();
+    public CreateNotificationUseCase createNotificationUseCase(NotificationGateway gateway) {
+        return new CreateNotificationUseCaseImpl(gateway);
     }
 
     @Bean
-    public GetAllNotificationsPagedUseCase getAllNotificationsPagedUseCase() {
-        return new GetAllNotificationsPagedUseCaseImpl();
+    public GetAllNotificationsPagedUseCase getAllNotificationsPagedUseCase(NotificationGateway gateway) {
+        return new GetAllNotificationsPagedUseCaseImpl(gateway);
     }
 
     @Bean
-    public GetSubscribedUsersUseCase getSubscribedUsersUseCase() {
-        return new GetSubscribedUsersUseCaseImpl();
+    public GetSubscribedUsersUseCase getSubscribedUsersUseCase(CategorySubscriptionGateway gateway) {
+        return new GetSubscribedUsersUseCaseImpl(gateway);
     }
 
     @Bean
-    public GetUserChannelPreferenceUseCase getUserChannelPreferenceUseCase() {
-        return new GetUserChannelPreferenceUseCaseImpl();
+    public GetUserChannelPreferenceUseCase getUserChannelPreferenceUseCase(ChannelSubscriptionGateway gateway) {
+        return new GetUserChannelPreferenceUseCaseImpl(gateway);
     }
 
     @Bean
-    public SendNotificationUseCase sendNotificationUseCase() {
-        return new SendNotificationUseCaseImpl();
+    public SendNotificationUseCase sendNotificationUseCase(NotificationGateway gateway) {
+        return new SendNotificationUseCaseImpl(gateway);
     }
 }
