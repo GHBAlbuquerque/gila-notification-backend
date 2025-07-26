@@ -37,7 +37,7 @@ class GetSubscribedUsersUseCaseImplTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenNoSubscriptions() {
+    void shouldReturnEmptyList_WhenNoSubscriptions() {
         final var category = CategoryType.MOVIES;
 
         when(gateway.findAllByCategory(category)).thenReturn(Collections.emptyList());

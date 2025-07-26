@@ -45,50 +45,59 @@ public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
 
         final List<CategorySubscription> subscriptions = getSubscribedUsersUseCase.execute(category);
 
+        if (subscriptions.isEmpty()) {
+            logger.info("No subscriptions found for category {}. Skipping.", category);
+            return;
+        }
+
+        // NOTE: for scalabity (thinking millions of users), consider:
+        // - fetching subscriptions in batches (e.g.: paged queries)
+        // - parallelizing notification creation and sending (e.g.: with completable future or external queues)
+        notifyUsers(subscriptions, message);
+    }
+
+    private void notifyUsers(final List<CategorySubscription> subscriptions, final String message) {
         for (CategorySubscription subscription : subscriptions) {
-            notifyUser(subscription, message);
+            Long userId = subscription.getUserId();
+
+            if (!userGateway.existsById(userId)) {
+                logger.warn("User {} not found. Skipping.", userId);
+                return;
+            }
+
+            List<ChannelSubscription> channelPreferences = getUserChannelPreferenceUseCase.execute(userId);
+
+            if (channelPreferences.isEmpty()) {
+                logger.warn("User {} has no preferred channels configured. Skipping.", userId);
+                return;
+            }
+
+            sendNotifications(subscription, channelPreferences, message);
         }
     }
 
-    private void notifyUser(final CategorySubscription subscription, final String message) {
-        Long userId = subscription.getUserId();
-
-        if (!userGateway.existsById(userId)) {
-            logger.info("User {} not found. Skipping.", userId);
-            return;
-        }
-
-        List<ChannelSubscription> channelPreferences = getUserChannelPreferenceUseCase.execute(userId);
-
-        if (channelPreferences.isEmpty()) {
-            logger.info("User {} has no preferred channels configured. Skipping.", userId);
-            return;
-        }
-
-        for (ChannelSubscription channelPref : channelPreferences) {
-            sendNotification(subscription, channelPref, message);
-        }
-    }
-
-    private void sendNotification(
+    private void sendNotifications(
             final CategorySubscription categorySubscription,
-            final ChannelSubscription channelSubscription,
+            final List<ChannelSubscription> channelPreferences,
             final String message) {
 
-        final Long userId = categorySubscription.getUserId();
-        final ChannelType channel = channelSubscription.getChannel();
+        for (ChannelSubscription channelSubscription : channelPreferences) {
 
-        final Notification notification = new Notification(userId, categorySubscription.getCategory(), channel, message);
+            final Long userId = categorySubscription.getUserId();
+            final ChannelType channel = channelSubscription.getChannel();
 
-        final User user = userGateway.findById(userId);
+            final Notification notification = new Notification(userId, categorySubscription.getCategory(), channel, message);
 
-        if (user == null) {
-            logger.info("User {} no longer exists when sending notification. Skipping.", userId);
-            return;
+            final User user = userGateway.findById(userId);
+
+            if (user == null) {
+                logger.warn("User {} no longer exists when sending notification. Skipping.", userId);
+                return;
+            }
+
+            final Notification saved = createNotificationUseCase.execute(user, notification);
+
+            sendNotificationUseCase.execute(user, saved);
         }
-
-        final Notification saved = createNotificationUseCase.execute(user, notification);
-
-        sendNotificationUseCase.execute(user, saved);
     }
 }

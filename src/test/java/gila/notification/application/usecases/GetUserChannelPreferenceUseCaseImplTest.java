@@ -37,7 +37,7 @@ class GetUserChannelPreferenceUseCaseImplTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenNoPreferencesExist() {
+    void shouldReturnEmptyList_WhenNoPreferencesExist() {
         final var userId = 2L;
 
         when(gateway.findAllByUserId(userId)).thenReturn(Collections.emptyList());

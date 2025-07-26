@@ -43,7 +43,7 @@ class GetAllNotificationsPagedUseCaseImplTest {
     }
 
     @Test
-    void shouldReturnEmptyPageWhenNoNotifications() {
+    void shouldReturnEmptyPage_WhenNoNotifications() {
         final var page = 1;
         final var size = 5;
         final var pageable = PageRequest.of(page, size, Sort.by("timestamp").descending());
