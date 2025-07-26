@@ -24,7 +24,7 @@ class UserGatewayImplTest {
     private UserGatewayImpl gateway;
 
     @Test
-    void shouldReturnUserWhenFoundById() {
+    void shouldReturnUser_WhenFoundById() {
         final var orm = createUserORM();
 
         when(repository.findById(orm.getId())).thenReturn(Optional.of(orm));
@@ -35,7 +35,7 @@ class UserGatewayImplTest {
     }
 
     @Test
-    void shouldReturnNullWhenUserNotFoundById() {
+    void shouldReturnNull_WhenUserNotFoundById() {
         final var id = 99L;
 
         when(repository.findById(id)).thenReturn(Optional.empty());
@@ -46,7 +46,7 @@ class UserGatewayImplTest {
     }
 
     @Test
-    void shouldReturnTrueWhenUserExistsById() {
+    void shouldReturnTrue_WhenUserExistsById() {
         final var id = 5L;
 
         when(repository.existsById(id)).thenReturn(true);
@@ -57,7 +57,7 @@ class UserGatewayImplTest {
     }
 
     @Test
-    void shouldReturnFalseWhenUserDoesNotExistById() {
+    void shouldReturnFalse_WhenUserDoesNotExistById() {
         final var id = 42L;
 
         when(repository.existsById(id)).thenReturn(false);
@@ -69,9 +69,5 @@ class UserGatewayImplTest {
 
     private UserORM createUserORM() {
         return new UserORM(1L, "Alice", "alice@example.com", "123-456");
-    }
-
-    private User createUser() {
-        return new User(1L, "Alice", "alice@example.com", "123-456");
     }
 }

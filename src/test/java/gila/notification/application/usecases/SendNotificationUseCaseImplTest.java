@@ -52,7 +52,7 @@ class SendNotificationUseCaseImplTest {
     }
 
     @Test
-    void shouldMarkAsFailedWhenSenderThrows() {
+    void shouldMarkAsFailed_WhenSenderThrows() {
         final var user = createUser();
         final var notification = createNotification(NotificationStatus.PENDING);
 
@@ -67,7 +67,7 @@ class SendNotificationUseCaseImplTest {
     }
 
     @Test
-    void shouldThrowWhenNoSenderMatchesChannel() {
+    void shouldThrow_WhenNoSenderMatchesChannel() {
         final var user = createUser();
         final var notification = createNotification(NotificationStatus.PENDING);
 
