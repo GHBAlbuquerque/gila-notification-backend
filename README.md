@@ -115,13 +115,13 @@ mvn clean package
 
 ### Accessing the app
 
-- API Base URL: `http://localhost:8080`
-- H2 Console (for dev profile): `http://localhost:8080/h2-console`
+- API Base URL: [http://localhost:8080](http://localhost:8080)
+- H2 Console (for dev profile): [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
     - JDBC URL: `jdbc:h2:mem:testdb`
     - User: `root`
     - Password: *(leave blank)*
 
-4. Access the Swagger UI at `http://localhost:8080/swagger-ui/index.html`
+4. Access the Swagger UI at [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 ---
 
 ## Notes
