@@ -111,7 +111,7 @@ http://localhost:8080/h2-console
 - API Base URL: `http://localhost:8080`
 - H2 Console (for dev profile): `http://localhost:8080/h2-console`
     - JDBC URL: `jdbc:h2:mem:testdb`
-    - User: `sa`
+    - User: `root`
     - Password: *(leave blank)*
 
 ---
