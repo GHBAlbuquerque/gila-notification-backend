@@ -36,6 +36,7 @@
 		<spring-boot.version>3.5.4</spring-boot.version>
 		<mockito-version>5.18.0</mockito-version>
 		<restassured-version>5.5.5</restassured-version>
+		<springdoc-openapi.version>2.8.9</springdoc-openapi.version>
 	</properties>
 
 	<dependencies>
@@ -111,6 +112,14 @@
 			<version>${restassured-version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- DOCS -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc-openapi.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

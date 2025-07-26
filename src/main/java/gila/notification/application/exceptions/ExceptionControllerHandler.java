@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.Date;
 import java.util.HashMap;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "gila.notification.adapters.controllers")
 public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger log = LogManager.getLogger(ExceptionControllerHandler.class);

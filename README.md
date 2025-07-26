@@ -121,6 +121,7 @@ mvn clean package
     - User: `root`
     - Password: *(leave blank)*
 
+4. Access the Swagger UI at `http://localhost:8080/swagger-ui/index.html`
 ---
 
 ## Notes
