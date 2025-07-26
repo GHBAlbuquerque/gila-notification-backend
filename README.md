@@ -100,7 +100,14 @@ http://localhost:8080/h2-console
 ```
 ### Starting the app
 
-1. Run the app via Maven:
+1. Add the app as maven project by right clicking the `pom.xml` file.
+2. Install dependencies and build the app:
+  
+```bash
+mvn clean package 
+```
+
+3. Run the app via Maven or directly from the main class `NotificationApplication`:
 
 ```bash
 ./mvnw spring-boot:run
