@@ -4,7 +4,7 @@
 Hello!
 This is my challenge for [Gila Software](https://www.gilasoftware.com/).
 
-It is composed of a backend application (this repo) and a frontend interface ([link]()).
+It is composed of a backend application (this repo) and a frontend interface ([link](https://github.com/GHBAlbuquerque/gila-notification-frontend)).
 
 ## Description
 
