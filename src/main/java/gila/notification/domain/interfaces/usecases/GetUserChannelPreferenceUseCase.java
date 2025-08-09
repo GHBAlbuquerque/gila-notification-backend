@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface GetUserChannelPreferenceUseCase {
     List<ChannelSubscription> execute(Long userId);
-    Map<Long, List<ChannelSubscription>> executeInBatches(List<Long> usersIds);
+    Map<Long, List<ChannelSubscription>> findAllByMultipleUsersIds(List<Long> usersIds);
 }

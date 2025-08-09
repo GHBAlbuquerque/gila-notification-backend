@@ -21,7 +21,7 @@ public class GetUserChannelPreferenceUseCaseImpl implements GetUserChannelPrefer
     }
 
     @Override
-    public Map<Long, List<ChannelSubscription>> executeInBatches(List<Long> usersIds) {
+    public Map<Long, List<ChannelSubscription>> findAllByMultipleUsersIds(List<Long> usersIds) {
         return gateway.findAllByUsersIds(usersIds);
     }
 }
