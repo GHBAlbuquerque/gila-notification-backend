@@ -13,3 +13,5 @@ CREATE TABLE users_category_subscriptions (
         FOREIGN KEY (userorm_id)
         REFERENCES users(id)
 );
+
+CREATE INDEX idx_users_category_subscriptions_userorm_id ON users_category_subscriptions(userorm_id);

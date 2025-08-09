@@ -8,4 +8,7 @@ CREATE TABLE notification_logs (
     status VARCHAR(20) NOT NULL,
 
     FOREIGN KEY (user_id) REFERENCES users(id)
-)
+);
+
+CREATE INDEX idx_notification_logs_channel ON notification_logs(channel);
+CREATE INDEX idx_notification_logs_category ON notification_logs(category);

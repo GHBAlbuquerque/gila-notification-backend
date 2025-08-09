@@ -13,3 +13,5 @@ CREATE TABLE users_channel_subscriptions (
         FOREIGN KEY (userorm_id)
         REFERENCES users(id)
 );
+
+CREATE INDEX idx_users_channel_subscriptions_userorm_id ON users_channel_subscriptions(userorm_id);
