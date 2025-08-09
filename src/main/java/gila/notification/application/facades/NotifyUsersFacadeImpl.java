@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
 
@@ -50,36 +52,43 @@ public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
             return;
         }
 
-        // NOTE: for scalabity (thinking millions of users), consider:
-        // - fetching subscriptions in batches (e.g.: paged queries)
-        // - parallelizing notification creation and sending (e.g.: with completable future or external queues)
-        notifyUsers(subscriptions, message);
+        final List<Long> userIds = subscriptions.stream().map(subs -> subs.getUserId()).collect(Collectors.toList());
+
+        //Bulk fetch users and subscriptions to avoid N+1 problem
+        final Map<Long, User> users = userGateway.findAllById(userIds);
+        final Map<Long, List<ChannelSubscription>> channelPrefs = getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(userIds);
+
+        notifyUsers(subscriptions, message, users, channelPrefs);
     }
 
-    private void notifyUsers(final List<CategorySubscription> subscriptions, final String message) {
+    private void notifyUsers(final List<CategorySubscription> subscriptions,
+                             final String message,
+                             final Map<Long, User> users,
+                             final Map<Long, List<ChannelSubscription>> channelPrefs) {
         for (CategorySubscription subscription : subscriptions) {
-            Long userId = subscription.getUserId();
+            final Long userId = subscription.getUserId();
 
-            if (!userGateway.existsById(userId)) {
+            final User user = users.get(userId);
+            if (user == null) {
                 logger.warn("User {} not found. Skipping.", userId);
-                return;
+                continue;
             }
 
-            List<ChannelSubscription> channelPreferences = getUserChannelPreferenceUseCase.execute(userId);
-
-            if (channelPreferences.isEmpty()) {
+            List<ChannelSubscription> userChannels = channelPrefs.get(userId);
+            if (userChannels == null || userChannels.isEmpty()) {
                 logger.warn("User {} has no preferred channels configured. Skipping.", userId);
-                return;
+                continue;
             }
 
-            sendNotifications(subscription, channelPreferences, message);
+            sendNotifications(subscription, userChannels, message, user);
         }
     }
 
     private void sendNotifications(
             final CategorySubscription categorySubscription,
             final List<ChannelSubscription> channelPreferences,
-            final String message) {
+            final String message,
+            final User user) {
 
         for (ChannelSubscription channelSubscription : channelPreferences) {
 
@@ -87,8 +96,6 @@ public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
             final ChannelType channel = channelSubscription.getChannel();
 
             final Notification notification = new Notification(userId, categorySubscription.getCategory(), channel, message);
-
-            final User user = userGateway.findById(userId);
 
             if (user == null) {
                 logger.warn("User {} no longer exists when sending notification. Skipping.", userId);

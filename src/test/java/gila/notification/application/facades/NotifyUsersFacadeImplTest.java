@@ -20,8 +20,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -63,9 +66,8 @@ class NotifyUsersFacadeImplTest {
     @Test
     void notifyUsers_success() {
         when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(List.of(subscription));
-        when(userGateway.existsById(1L)).thenReturn(true);
-        when(getUserChannelPreferenceUseCase.execute(1L)).thenReturn(List.of(channelSubscription));
-        when(userGateway.findById(1L)).thenReturn(user);
+        when(userGateway.findAllById(List.of(1L))).thenReturn(Map.of(1L, user));
+        when(getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(List.of(1L))).thenReturn(Map.of(1L, List.of(channelSubscription)));
         when(createNotificationUseCase.execute(any(User.class), any(Notification.class))).thenReturn(notification);
 
         notifyUsersFacade.notifyUsers(dto);
@@ -80,38 +82,45 @@ class NotifyUsersFacadeImplTest {
         notifyUsersFacade.notifyUsers(dto);
 
         verifyNoInteractions(userGateway);
+        verifyNoInteractions(getUserChannelPreferenceUseCase);
+        verifyNoInteractions(createNotificationUseCase);
+        verifyNoInteractions(sendNotificationUseCase);
     }
 
     @Test
     void notifyUsers_userNotFound() {
         when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(List.of(subscription));
-        when(userGateway.existsById(1L)).thenReturn(false);
+        when(userGateway.findAllById(List.of(1L))).thenReturn(Collections.emptyMap());
 
         notifyUsersFacade.notifyUsers(dto);
 
-        verify(userGateway, never()).findById(1L);
+        verifyNoInteractions(createNotificationUseCase);
+        verifyNoInteractions(sendNotificationUseCase);
     }
 
     @Test
     void notifyUsers_noChannelPreferences() {
         when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(List.of(subscription));
-        when(userGateway.existsById(1L)).thenReturn(true);
-        when(getUserChannelPreferenceUseCase.execute(1L)).thenReturn(Collections.emptyList());
+        when(userGateway.findAllById(List.of(1L))).thenReturn(Map.of(1L, user));
+        when(getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(List.of(1L))).thenReturn(Collections.emptyMap());
 
         notifyUsersFacade.notifyUsers(dto);
 
-        verify(createNotificationUseCase, never()).execute(any(), any());
+        verifyNoInteractions(createNotificationUseCase);
+        verifyNoInteractions(sendNotificationUseCase);
     }
 
     @Test
     void notifyUsers_userDeletedBeforeSend() {
         when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(List.of(subscription));
-        when(userGateway.existsById(1L)).thenReturn(true);
-        when(getUserChannelPreferenceUseCase.execute(1L)).thenReturn(List.of(channelSubscription));
-        when(userGateway.findById(1L)).thenReturn(null);
+        Map users = new HashMap<Long, User>();
+        users.put(1L, null);
+        when(userGateway.findAllById(List.of(1L))).thenReturn(users);
+        when(getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(List.of(1L))).thenReturn(Map.of(1L, List.of(channelSubscription)));
 
         notifyUsersFacade.notifyUsers(dto);
 
-        verify(createNotificationUseCase, never()).execute(any(), any());
+        verifyNoInteractions(createNotificationUseCase);
+        verifyNoInteractions(sendNotificationUseCase);
     }
 }

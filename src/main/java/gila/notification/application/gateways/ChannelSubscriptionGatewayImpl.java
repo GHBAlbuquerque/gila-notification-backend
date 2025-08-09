@@ -5,10 +5,13 @@ import gila.notification.domain.interfaces.gateways.ChannelSubscriptionGateway;
 import gila.notification.domain.entities.ChannelSubscription;
 import gila.notification.domain.interfaces.repositories.CategorySubscriptionRepository;
 import gila.notification.domain.interfaces.repositories.ChannelSubscriptionRepository;
+import gila.notification.infrastructure.orm.ChannelSubscriptionORM;
 import gila.notification.infrastructure.orm.id.ChannelSubId;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ChannelSubscriptionGatewayImpl implements ChannelSubscriptionGateway {
 
@@ -24,5 +27,14 @@ public class ChannelSubscriptionGatewayImpl implements ChannelSubscriptionGatewa
                 .stream()
                 .map(ChannelSubscriptionMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public Map<Long, List<ChannelSubscription>> findAllByUsersIds(List<Long> usersIds) {
+        List<ChannelSubscriptionORM> channelSubscriptionORMS = repository.findAllById_UserIdIn(usersIds);
+
+        return channelSubscriptionORMS.stream()
+                .map(ChannelSubscriptionMapper::toDomain)
+                .collect(Collectors.groupingBy(ChannelSubscription::getUserId));
     }
 }

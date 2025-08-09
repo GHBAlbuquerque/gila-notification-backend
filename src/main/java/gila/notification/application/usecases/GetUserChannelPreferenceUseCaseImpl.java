@@ -5,6 +5,7 @@ import gila.notification.domain.interfaces.gateways.ChannelSubscriptionGateway;
 import gila.notification.domain.interfaces.usecases.GetUserChannelPreferenceUseCase;
 
 import java.util.List;
+import java.util.Map;
 
 public class GetUserChannelPreferenceUseCaseImpl implements GetUserChannelPreferenceUseCase {
 
@@ -17,5 +18,10 @@ public class GetUserChannelPreferenceUseCaseImpl implements GetUserChannelPrefer
     @Override
     public List<ChannelSubscription> execute(final Long userId) {
         return gateway.findAllByUserId(userId);
+    }
+
+    @Override
+    public Map<Long, List<ChannelSubscription>> findAllByMultipleUsersIds(List<Long> usersIds) {
+        return gateway.findAllByUsersIds(usersIds);
     }
 }
