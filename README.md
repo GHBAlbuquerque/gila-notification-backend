@@ -1,10 +1,9 @@
 # 📬 Notification System
-### gila-notification-backend
+### study-notification-backend
 
 Hello!
-This is my challenge for [Gila Software](https://www.gilasoftware.com/).
 
-It is composed of a backend application (this repo) and a frontend interface ([link](https://github.com/GHBAlbuquerque/gila-notification-frontend)).
+This is a project composed of a backend application (this repo) and a frontend interface ([link](https://github.com/GHBAlbuquerque/study-notification-frontend)).
 
 ## Description
 
@@ -26,7 +25,7 @@ Available Channels:
 ## 🏛️ Architecture
 
 ```
-📁 gila.notification
+📁 study.notification
 ├── 📁 adapters
 │   └── 📁 controllers              # 🔹 Controllers – REST endpoints
 │
@@ -76,7 +75,7 @@ Available Channels:
 
 ### Option 1: Running with Docker Compose
 
-1. Navigate to the `/infra-gila-notifications` directory and run:
+1. Navigate to the `/infra-study-notifications` directory and run:
 
 ```bash
 docker-compose up --build

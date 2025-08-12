@@ -8,11 +8,11 @@
 		<version>3.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>gila</groupId>
+	<groupId>study</groupId>
 	<artifactId>notification</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>notification</name>
-	<description>Backend for Gila Software challenge for a Notification System.</description>
+	<description>Backend for Study Software challenge for a Notification System.</description>
 	<url/>
 	<licenses>
 		<license/>
