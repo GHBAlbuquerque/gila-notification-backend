@@ -21,4 +21,11 @@ public class AsyncConfig {
         executor.initialize();
         return executor;
     }
+
+    /*
+    @Bean(name = "notificationBatchExecutor")
+    public Executor batchExecutor() { ... }
+
+    a new executor for manual task submission
+     */
 }

@@ -1,5 +1,8 @@
 package study.notification.application.facades;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import study.notification.adapters.dto.request.CreateNotificationDTO;
 import study.notification.domain.entities.CategorySubscription;
 import study.notification.domain.entities.ChannelSubscription;
@@ -19,9 +22,11 @@ import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
+
+    @Value("${database.max.page.size}")
+    private Integer PAGE_SIZE;
 
     private static final Logger logger = LoggerFactory.getLogger(NotifyUsersFacadeImpl.class);
 
@@ -45,26 +50,38 @@ public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
         final CategoryType category = dto.category();
         final String message = dto.message();
 
-        final List<CategorySubscription> subscriptions = getSubscribedUsersUseCase.execute(category);
+        int currentPage = 0;
+        Page<CategorySubscription> subscriptionPage;
 
-        if (subscriptions.isEmpty()) {
-            logger.info("No subscriptions found for category {}. Skipping.", category);
-            return;
-        }
+        do {
+            // get paginated subscriptions for batch processing
+            subscriptionPage = getSubscribedUsersUseCase.executePaged(category, PageRequest.of(currentPage, PAGE_SIZE));
 
-        final List<Long> userIds = subscriptions.stream().map(subs -> subs.getUserId()).collect(Collectors.toList());
+            if(subscriptionPage.isEmpty()) {
+                logger.info("No subscriptions found for category {}. Skipping.", category);
+                break;
+            }
 
-        //Bulk fetch users and subscriptions to avoid N+1 problem
-        final Map<Long, User> users = userGateway.findAllById(userIds);
-        final Map<Long, List<ChannelSubscription>> channelPrefs = getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(userIds);
+            List<Long> usersIds = subscriptionPage.getContent().stream().map(CategorySubscription::getUserId).toList();
 
-        notifyUsers(subscriptions, message, users, channelPrefs);
+            // Bulk fetch all users and their channel subscriptions in this lot
+            Map<Long, User> usersMap = userGateway.findAllById(usersIds);
+            Map<Long, List<ChannelSubscription>> channelSubscriptionMap = getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(usersIds);
+
+            // This could be submitted to anoher thread, using a newly created executor
+            // Example: executor.submit(() -> batchNotifyUsers(subscriptionPage.getContent(), message, usersMap, channelSubscriptionMap));
+            batchNotifyUsers(subscriptionPage.getContent(),message, usersMap, channelSubscriptionMap);
+
+            // Do for the next page
+            currentPage++;
+
+        } while(subscriptionPage.hasNext());
     }
 
-    private void notifyUsers(final List<CategorySubscription> subscriptions,
-                             final String message,
-                             final Map<Long, User> users,
-                             final Map<Long, List<ChannelSubscription>> channelPrefs) {
+    private void batchNotifyUsers(final List<CategorySubscription> subscriptions,
+                                  final String message,
+                                  final Map<Long, User> users,
+                                  final Map<Long, List<ChannelSubscription>> channelPrefs) {
         for (CategorySubscription subscription : subscriptions) {
             final Long userId = subscription.getUserId();
 
