@@ -57,7 +57,7 @@ public class NotifyUsersFacadeImpl implements NotifyUsersFacade {
             // get paginated subscriptions for batch processing
             subscriptionPage = getSubscribedUsersUseCase.executePaged(category, PageRequest.of(currentPage, PAGE_SIZE));
 
-            if(subscriptionPage.getTotalElements() == 0) {
+            if(subscriptionPage.isEmpty()) {
                 logger.info("No subscriptions found for category {}. Skipping.", category);
                 break;
             }

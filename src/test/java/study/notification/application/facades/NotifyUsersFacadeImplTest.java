@@ -1,5 +1,9 @@
 package study.notification.application.facades;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.util.ReflectionTestUtils;
 import study.notification.adapters.dto.request.CreateNotificationDTO;
 import study.notification.domain.entities.CategorySubscription;
 import study.notification.domain.entities.ChannelSubscription;
@@ -56,6 +60,7 @@ class NotifyUsersFacadeImplTest {
 
     @BeforeEach
     void setUp() {
+        ReflectionTestUtils.setField(notifyUsersFacade, "PAGE_SIZE", 5000);
         dto = new CreateNotificationDTO(CategoryType.MOVIES, "Hello World");
         subscription = new CategorySubscription(1L, CategoryType.MOVIES);
         channelSubscription = new ChannelSubscription(1L, ChannelType.SMS);
@@ -65,7 +70,8 @@ class NotifyUsersFacadeImplTest {
 
     @Test
     void notifyUsers_success() {
-        when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(List.of(subscription));
+        final Page page = new PageImpl(List.of(subscription), PageRequest.of(0, 5000), 1);
+        when(getSubscribedUsersUseCase.executePaged(CategoryType.MOVIES,  PageRequest.of(0, 5000))).thenReturn(page);
         when(userGateway.findAllById(List.of(1L))).thenReturn(Map.of(1L, user));
         when(getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(List.of(1L))).thenReturn(Map.of(1L, List.of(channelSubscription)));
         when(createNotificationUseCase.execute(any(User.class), any(Notification.class))).thenReturn(notification);
@@ -77,7 +83,8 @@ class NotifyUsersFacadeImplTest {
 
     @Test
     void notifyUsers_noSubscriptions() {
-        when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(Collections.emptyList());
+        final Page page = new PageImpl(List.of(), PageRequest.of(0, 5000), 1);
+        when(getSubscribedUsersUseCase.executePaged(CategoryType.MOVIES,  PageRequest.of(0, 5000))).thenReturn(page);
 
         notifyUsersFacade.notifyUsers(dto);
 
@@ -89,7 +96,8 @@ class NotifyUsersFacadeImplTest {
 
     @Test
     void notifyUsers_userNotFound() {
-        when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(List.of(subscription));
+        final Page page = new PageImpl(List.of(subscription), PageRequest.of(0, 5000), 1);
+        when(getSubscribedUsersUseCase.executePaged(CategoryType.MOVIES,  PageRequest.of(0, 5000))).thenReturn(page);
         when(userGateway.findAllById(List.of(1L))).thenReturn(Collections.emptyMap());
 
         notifyUsersFacade.notifyUsers(dto);
@@ -100,7 +108,8 @@ class NotifyUsersFacadeImplTest {
 
     @Test
     void notifyUsers_noChannelPreferences() {
-        when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(List.of(subscription));
+        final Page page = new PageImpl(List.of(subscription), PageRequest.of(0, 5000), 1);
+        when(getSubscribedUsersUseCase.executePaged(CategoryType.MOVIES,  PageRequest.of(0, 5000))).thenReturn(page);
         when(userGateway.findAllById(List.of(1L))).thenReturn(Map.of(1L, user));
         when(getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(List.of(1L))).thenReturn(Collections.emptyMap());
 
@@ -112,8 +121,9 @@ class NotifyUsersFacadeImplTest {
 
     @Test
     void notifyUsers_userDeletedBeforeSend() {
-        when(getSubscribedUsersUseCase.execute(CategoryType.MOVIES)).thenReturn(List.of(subscription));
-        Map users = new HashMap<Long, User>();
+        final Page page = new PageImpl(List.of(subscription), PageRequest.of(0, 5000), 1);
+        when(getSubscribedUsersUseCase.executePaged(CategoryType.MOVIES,  PageRequest.of(0, 5000))).thenReturn(page);
+        Map<Long, User> users = new HashMap<Long, User>();
         users.put(1L, null);
         when(userGateway.findAllById(List.of(1L))).thenReturn(users);
         when(getUserChannelPreferenceUseCase.findAllByMultipleUsersIds(List.of(1L))).thenReturn(Map.of(1L, List.of(channelSubscription)));
