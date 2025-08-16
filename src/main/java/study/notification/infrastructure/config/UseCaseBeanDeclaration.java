@@ -25,6 +25,11 @@ public class UseCaseBeanDeclaration {
     }
 
     @Bean
+    public GetFilteredNotificationsPagedUseCase getFilteredNotificationsPagedUseCase(NotificationGateway gateway) {
+        return new GetFilteredNotificationsPagedUseCaseImpl(gateway);
+    }
+
+    @Bean
     public GetSubscribedUsersUseCase getSubscribedUsersUseCase(CategorySubscriptionGateway gateway) {
         return new GetSubscribedUsersUseCaseImpl(gateway);
     }
@@ -38,4 +43,6 @@ public class UseCaseBeanDeclaration {
     public SendNotificationUseCase sendNotificationUseCase(NotificationGateway gateway, List<NotificationSender> senders) {
         return new SendNotificationUseCaseImpl(gateway, senders);
     }
+
+
 }

@@ -2,6 +2,7 @@ package study.notification.application.gateways;
 
 import study.notification.application.exceptions.NotificationNotFoundException;
 import study.notification.application.mappers.NotificationMapper;
+import study.notification.domain.enums.CategoryType;
 import study.notification.domain.enums.NotificationStatus;
 import study.notification.domain.interfaces.gateways.NotificationGateway;
 import study.notification.domain.entities.Notification;
@@ -44,6 +45,13 @@ public class NotificationGatewayImpl implements NotificationGateway {
     @Override
     public Page<Notification> findAll(Pageable pageable) {
         return repository.findAll(pageable)
+                .map(NotificationMapper::toDomain);
+    }
+
+    @Override
+    public Page<Notification> findAllByCategory(Pageable pageable, String category) {
+        final CategoryType categoryType = CategoryType.valueOf(category);
+        return repository.findAllByCategory(pageable, categoryType)
                 .map(NotificationMapper::toDomain);
     }
 }
